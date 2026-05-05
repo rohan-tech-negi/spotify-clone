@@ -3,8 +3,12 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/auth", (req, res)=>{
-    res.send("auth");
+router.post("/callback", async(req, res)=>{
+    try {
+        
+    } catch (error) {
+        
+    }
 })
 
 export default router;
