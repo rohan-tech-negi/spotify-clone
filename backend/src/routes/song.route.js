@@ -3,8 +3,8 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/users", (req, res)=>{
-    res.send("Users");
+router.get("/songs", (req, res)=>{
+    res.send("songs");
 })
 
 export default router;
