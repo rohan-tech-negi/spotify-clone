@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { clerkClient, clerkMiddleware, getAuth } from '@clerk/express'
 import fileUpload from "express-fileupload"
+import path from "path"
 
 import { connectDB } from "./lib/db.js";
 import userRoutes from "./routes/user.route.js"
@@ -14,13 +15,20 @@ import statRoutes from "./routes/stat.route.js"
 
 dotenv.config();
 
+const __dirname = path.resolve();
+
 connectDB();
 const app = express();
 
 app.use(express.json());
 
 app.use(clerkMiddleware())
-app.use(fileUpload({useTempFiles: true, tempFileDir: '/tmp'}))
+app.use(fileUpload({useTempFiles: true, tempFileDir: path.join(__dirname, 'tmp'),
+    createParentPath: true,
+    limits:{
+        fileSize: 10 * 1024 * 1024
+    }
+}))
 
 
 app.use("/api/users", userRoutes)
