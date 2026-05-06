@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import { clerkClient, clerkMiddleware, getAuth } from '@clerk/express'
+import fileUpload from "express-fileupload"
 
 import { connectDB } from "./lib/db.js";
 import userRoutes from "./routes/user.route.js"
@@ -19,6 +20,7 @@ const app = express();
 app.use(express.json());
 
 app.use(clerkMiddleware())
+app.use(fileUpload({useTempFiles: true, tempFileDir: '/tmp'}))
 
 
 app.use("/api/users", userRoutes)
