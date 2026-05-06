@@ -1,4 +1,5 @@
-
+import {Song} from "../models/songModel.js"
+import {Album} from "../models/albumModel.js"
 
 
 export const createSong = async (req, res, next) => {
