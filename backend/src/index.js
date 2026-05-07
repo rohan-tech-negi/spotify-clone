@@ -38,6 +38,11 @@ app.use("/api/auth", authRoutes)
 app.use("/api/songs", songRoutes)
 app.use("/api/stats", statRoutes)
 
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).send("Something broke!")
+})
+
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`);
 });
