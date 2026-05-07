@@ -40,7 +40,7 @@ app.use("/api/stats", statRoutes)
 
 app.use((err, req, res, next) => {
     console.error(err.stack)
-    res.status(500).send("Something broke!")
+    res.status(500).json({message: process.env.NODE_ENV === "production" ? "Something went wrong" : err})
 })
 
 app.listen(process.env.PORT, () => {

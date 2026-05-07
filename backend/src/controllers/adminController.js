@@ -1,5 +1,19 @@
 import {Song} from "../models/songModel.js"
 import {Album} from "../models/albumModel.js"
+import cloudinary from "../lib/cloudinary.js"
+
+
+const uploadToCloudinary = async (file) => {
+	try {
+		const result = await cloudinary.uploader.upload(file.tempFilePath, {
+			resource_type: "auto",
+		});
+		return result.secure_url;
+	} catch (error) {
+		console.log("Error in uploadToCloudinary", error);
+		throw new Error("Error uploading to cloudinary");
+	}
+};
 
 
 export const createSong = async (req, res, next) => {
