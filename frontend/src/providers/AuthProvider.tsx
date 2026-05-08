@@ -1,5 +1,6 @@
 import { axiosInstance } from '@/lib/axios';
 import { useAuth } from '@clerk/clerk-react';
+import { Loader } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 
 const updateApiToken = (token: string | null) => {
@@ -7,7 +8,7 @@ const updateApiToken = (token: string | null) => {
 	else delete axiosInstance.defaults.headers.common["Authorization"];
 };
 
-const AuthProvider = () => {
+const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { getToken, userId } = useAuth();
 	const [loading, setLoading] = useState(true);
 
@@ -16,11 +17,7 @@ const AuthProvider = () => {
 			try {
 				const token = await getToken();
 				updateApiToken(token);
-				if (token) {
-					await checkAdminStatus();
-					// init socket
-					if (userId) initSocket(userId);
-				}
+				
 			} catch (error: any) {
 				updateApiToken(null);
 				console.log("Error in auth provider", error);
@@ -28,11 +25,18 @@ const AuthProvider = () => {
 				setLoading(false);
 			}
 		};
+        initAuth();
 
 
-    })
+    },[getToken])
+    if (loading)
+		return (
+			<div className='h-screen w-full flex items-center justify-center'>
+				<Loader className='size-8 text-emerald-500 animate-spin' />
+			</div>
+		);
   return (
-    <div>AuthProvider</div>
+    <>{children}</>
   )
 }
 
