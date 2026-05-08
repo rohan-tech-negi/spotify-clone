@@ -9,7 +9,7 @@ const updateApiToken = (token: string | null) => {
 };
 
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const { getToken, userId } = useAuth();
+    const { getToken} = useAuth();
 	const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
