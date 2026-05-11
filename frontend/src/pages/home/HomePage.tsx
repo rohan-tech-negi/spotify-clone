@@ -3,9 +3,9 @@ import React from 'react'
 
 const HomePage = () => {
   return (
-    <div>
-      <Topbar></Topbar>
-    </div>
+    <main className="rounded-md overflow-hidden h-full bg-zinc-900">
+      <Topbar />
+    </main>
   )
 }
 
