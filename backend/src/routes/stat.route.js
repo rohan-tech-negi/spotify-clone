@@ -1,7 +1,6 @@
 
 import { Router } from "express";
-import { protectRoute } from "../middleware/auth.middleware.js";
-import { requireAdmin } from "../middleware/admin.middleware.js";
+import { protectRoute, requireAdmin } from "../middleware/auth.middleware.js";
 // import { getStats } from "../controllers/statController.js";
 import { getStats } from "../controllers/statController.js";
 
