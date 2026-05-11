@@ -5,6 +5,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable"
 import { Outlet } from 'react-router-dom';
+import LeftSidebar from './components/LeftSidebar';
 
 const MainLayout = () => {
     const [isMobile, setIsMobile] = useState(false);
@@ -16,7 +17,7 @@ const MainLayout = () => {
 				{/* <AudioPlayer /> */}
 				{/* left sidebar */}
 				<ResizablePanel defaultSize={20} minSize={isMobile ? 0 : 10} maxSize={30}>
-					{/* <LeftSidebar /> */}
+					<LeftSidebar />
                     left sidebar
 				</ResizablePanel>
 
