@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { clerkClient, clerkMiddleware, getAuth } from '@clerk/express'
 import fileUpload from "express-fileupload"
 import path from "path"
+import cors from "cors"
 
 import { connectDB } from "./lib/db.js";
 import userRoutes from "./routes/user.route.js"
@@ -19,6 +20,10 @@ const __dirname = path.resolve();
 
 connectDB();
 const app = express();
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
+}))
 
 app.use(express.json());
 
