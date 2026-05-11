@@ -1,6 +1,8 @@
 import { LayoutDashboardIcon } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import SignInOAuthButtons from './SignInOAuthButtons'
+import { SignOutButton, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react'
 
 const Topbar = () => {
     const isAdmin = false
@@ -20,6 +22,9 @@ const Topbar = () => {
 						Admin Dashboard
 					</Link>
 				)}
+				<SignedIn>
+					<SignOutButton></SignOutButton>
+				</SignedIn>
 
 				<SignedOut>
 					<SignInOAuthButtons />
