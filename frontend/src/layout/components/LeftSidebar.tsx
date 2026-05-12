@@ -7,6 +7,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const LeftSidebar = () => {
+	const isloading = true
   return (
     <div className='h-full flex flex-col gap-2'>
         {/* navigation menu */}
@@ -51,7 +52,7 @@ const LeftSidebar = () => {
 
 				<ScrollArea className='h-[calc(100vh-300px)]'>
 					<div className='space-y-2'>
-						{isLoading ? (
+						{isloading ? (
 							<PlaylistSkeleton />
 						) : (
 							albums.map((album) => (
