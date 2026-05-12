@@ -6,7 +6,12 @@ import { create } from "zustand";
 
 
 interface MusicStore {
-	
+	songs: any[];
+	albums: any[];
+	isLoading: boolean;
+	error: string | null;
+
+    fetchAlbums: () => Promise<void>;
 }
 
 
