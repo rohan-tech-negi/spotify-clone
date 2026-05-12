@@ -1,10 +1,16 @@
 import { axiosInstance } from "@/lib/axios";
 
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 import { create } from "zustand";
 
 
-export const useMusicStore = create((set) => ({
+
+interface MusicStore {
+	
+}
+
+
+export const useMusicStore = create<MusicStore>((set) => ({
     albums: [],
 	songs: [],
     isLoading: false,
@@ -23,6 +29,7 @@ export const useMusicStore = create((set) => ({
 			set({ isLoading: false });
 		}
 	},
+
 
     
 }))
