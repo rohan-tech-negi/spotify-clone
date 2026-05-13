@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import SignInOAuthButtons from './SignInOAuthButtons'
 import { SignOutButton, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react'
 import { useAuthStore } from '@/stores/useAuthStore'
+import { cn } from '@/lib/utils'
+import { buttonVariants } from './ui/button'
 
 const Topbar = () => {
     const isAdmin = useAuthStore()
@@ -19,14 +21,16 @@ const Topbar = () => {
 			</div>
             <div className='flex items-center gap-4'>
 				{isAdmin && (
-					<Link to={"/admin"} >
+					<Link to={"/admin"}  className={cn(buttonVariants({
+						variant: "outline"
+					})
+
+					)}>
 						<LayoutDashboardIcon className='size-4  mr-2' />
 						Admin Dashboard
 					</Link>
 				)}
-				<SignedIn>
-					<SignOutButton></SignOutButton>
-				</SignedIn>
+				
 
 				<SignedOut>
 					<SignInOAuthButtons />
