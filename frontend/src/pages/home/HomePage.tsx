@@ -20,7 +20,9 @@ const HomePage = () => {
 		fetchTrendingSongs();
 	}, [fetchFeaturedSongs, fetchMadeForYouSongs, fetchTrendingSongs]);
 
-  
+  console.log({isLoading, madeForYouSongs, featuredSongs, trendingSongs})
+
+
   return (
     <main className="rounded-md overflow-hidden h-full bg-zinc-900">
       <Topbar />
