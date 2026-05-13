@@ -1,3 +1,4 @@
+import type { Song } from '@/types';
 import React from 'react'
 
 
@@ -7,7 +8,8 @@ type SectionGridProps = {
 	isLoading: boolean;
 };
 
-const SectionGrid = () => {
+const SectionGrid = ({ songs, title, isLoading }: SectionGridProps) => {
+  if (isLoading) return <SectionGridSkeleton />;
   return (
     <div>SectionGrid</div>
   )
