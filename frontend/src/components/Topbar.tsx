@@ -3,9 +3,11 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import SignInOAuthButtons from './SignInOAuthButtons'
 import { SignOutButton, SignedIn, SignedOut, UserButton } from '@clerk/clerk-react'
+import { useAuthStore } from '@/stores/useAuthStore'
 
 const Topbar = () => {
-    const isAdmin = false
+    const isAdmin = useAuthStore()
+	console.log({isAdmin})
 
   return (
     <div className='flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 
