@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useChatStore } from '@/stores/useChatStore';
 import { useUser } from '@clerk/clerk-react';
@@ -35,10 +36,10 @@ const FriendsActivity = () => {
 							>
 								<div className='flex items-start gap-3'>
 									<div className='relative'>
-										{/* <Avatar className='size-10 border border-zinc-800'>
+										<Avatar className='size-10 border border-zinc-800'>
 											<AvatarImage src={user.imageUrl} alt={user.fullName} />
 											<AvatarFallback>{user.fullName[0]}</AvatarFallback>
-										</Avatar> */}
+										</Avatar>
 										<div
 											className={`absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-zinc-900 
 												${onlineUsers.has(user.clerkId) ? "bg-green-500" : "bg-zinc-500"}
