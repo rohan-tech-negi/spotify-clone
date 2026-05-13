@@ -1,6 +1,7 @@
 import Topbar from '@/components/Topbar'
 import { useMusicStore } from '@/stores/useMusicStore';
 import React, { useEffect } from 'react'
+import FeaturedSection from './components/FeaturedSection';
 
 const HomePage = () => {
 
@@ -26,6 +27,7 @@ const HomePage = () => {
   return (
     <main className="rounded-md overflow-hidden h-full bg-zinc-900">
       <Topbar />
+	  <FeaturedSection></FeaturedSection>
     </main>
   )
 }
