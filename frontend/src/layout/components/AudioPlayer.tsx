@@ -1,8 +1,9 @@
 import React from 'react'
 
 const AudioPlayer = () => {
+  const audioRef = useRef<HTMLAudioElement>(null);
   return (
-    <div>AudioPlayer</div>
+    <audio/>
   )
 }
 
