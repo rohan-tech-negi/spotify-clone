@@ -14,3 +14,4 @@ interface PlayerStore {
 	playNext: () => void;
 	playPrevious: () => void;
 }
+
