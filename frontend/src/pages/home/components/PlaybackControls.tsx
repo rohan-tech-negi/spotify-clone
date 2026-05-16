@@ -4,6 +4,12 @@ import { usePlayerStore } from '@/stores/usePlayerStore';
 import { Laptop2, ListMusic, Mic2, Pause, Play, Repeat, Shuffle, SkipBack, SkipForward, Volume1 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react'
 
+const formatTime = (seconds: number) => {
+	const minutes = Math.floor(seconds / 60);
+	const remainingSeconds = Math.floor(seconds % 60);
+	return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+};
+
 const PlaybackControls = () => {
     const { currentSong, isPlaying, togglePlay, playNext, playPrevious } = usePlayerStore();
 
