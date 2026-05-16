@@ -1,11 +1,15 @@
 import { useAuthStore } from '@/stores/useAuthStore';
 import React from 'react'
+import Header from './components/Header';
+import DashboardStats from './components/DashboardStats';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Album, Music } from 'lucide-react';
 
 const AdminPage = () => {
   const { isAdmin, isLoading } = useAuthStore();
 
 
-  if (!isAdmin && !isLoading) return <div>Unauthorized</div>;
+  // if (!isAdmin && !isLoading) return <div>Unauthorized</div>;
 
 
   return (
@@ -31,9 +35,11 @@ const AdminPage = () => {
 
 				<TabsContent value='songs'>
 					<SongsTabContent />
+          {/* songs tab content */}
 				</TabsContent>
 				<TabsContent value='albums'>
 					<AlbumsTabContent />
+          {/* albums tab content */}
 				</TabsContent>
 			</Tabs>
 		</div>
