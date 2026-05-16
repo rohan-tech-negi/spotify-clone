@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ResizableHandle,
   ResizablePanel,
@@ -12,6 +12,16 @@ import PlaybackControls from '@/pages/home/components/PlaybackControls';
 
 const MainLayout = () => {
     const [isMobile, setIsMobile] = useState(false);
+
+	useEffect(() => {
+		const checkMobile = () => {
+			setIsMobile(window.innerWidth < 768);
+		};
+
+		checkMobile();
+		window.addEventListener("resize", checkMobile);
+		return () => window.removeEventListener("resize", checkMobile);
+	}, []);
 
 
   return (
@@ -31,13 +41,16 @@ const MainLayout = () => {
 					<Outlet />
 				</ResizablePanel>
 
+						{!isMobile && (
+					<>
 						<ResizableHandle className='w-2 bg-black rounded-lg transition-colors' />
 
 						{/* right sidebar */}
-						<ResizablePanel defaultSize={20}>
+						<ResizablePanel defaultSize={20} minSize={0} maxSize={25} collapsedSize={0}>
 							<FriendsActivity />
-                            friends activity
 						</ResizablePanel>
+					</>
+				)}
 			</ResizablePanelGroup>
 
 			<PlaybackControls />
