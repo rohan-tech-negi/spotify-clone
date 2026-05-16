@@ -6,6 +6,7 @@ import AuthCallbackPage from './pages/auth-callback/AuthCallbackPage'
 import MainLayout from './layout/MainLayout'
 import ChatPage from './pages/chatpage/ChatPage'
 import AlbumPage from './pages/album/AlbumPage'
+import AdminPage from './pages/admin/AdminPage'
 
 function App() {
   
@@ -15,6 +16,7 @@ function App() {
       
       <Route path='/sso-callback' element={<AuthenticateWithRedirectCallback  signInForceRedirectUrl={"/auth-callback"}/>} />
       <Route path='/auth-callback' element={<AuthCallbackPage />} />
+      <Route path='/admin' element={<AdminPage />} />
 
       <Route  element={<MainLayout />} >
           <Route path='/' element={<HomePage />} />
