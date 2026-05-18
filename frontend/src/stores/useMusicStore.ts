@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/lib/axios";
-import type { Album, Song } from "@/types";
+import type { Album, Song, Stats } from "@/types";
 
 // import toast from "react-hot-toast";
 import { create } from "zustand";
@@ -15,7 +15,7 @@ interface MusicStore {
 	featuredSongs: Song[];
 	madeForYouSongs: Song[];
 	trendingSongs: Song[];
-	// stats: Stats;
+	stats: Stats;
 
     fetchAlbums: () => Promise<void>;
 	fetchAlbumById: (id: string) => Promise<void>;
@@ -36,6 +36,12 @@ export const useMusicStore = create<MusicStore>((set) => ({
 	madeForYouSongs: [],
 	featuredSongs: [],
 	trendingSongs: [],
+	stats: {
+		totalSongs: 0,
+		totalAlbums: 0,
+		totalUsers: 0,
+		totalArtists: 0,
+	},
 
     fetchAlbums: async () => {
 		set({ isLoading: true, error: null });
