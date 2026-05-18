@@ -1,12 +1,23 @@
 import { useAuthStore } from '@/stores/useAuthStore';
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from './components/Header';
 import DashboardStats from './components/DashboardStats';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Album, Music } from 'lucide-react';
+import SongsTabContent from './components/SongsTabContent';
+import AlbumsTabContent from './components/AlbumsTabContent';
+import { useMusicStore } from '@/stores/useMusicStore';
 
 const AdminPage = () => {
   const { isAdmin, isLoading } = useAuthStore();
+  
+	const { fetchAlbums, fetchSongs, fetchStats } = useMusicStore();
+
+  	useEffect(() => {
+		fetchAlbums();
+		fetchSongs();
+		fetchStats();
+	}, [fetchAlbums, fetchSongs, fetchStats]);
 
 
   // if (!isAdmin && !isLoading) return <div>Unauthorized</div>;
