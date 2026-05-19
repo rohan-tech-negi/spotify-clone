@@ -19,6 +19,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			try {
 				const token = await getToken();
 				updateApiToken(token);
+				console.log("Token from clerk:", token ? "Token received" : "No token");
 				if(token){
 					await checkAdminStatus();
 				}

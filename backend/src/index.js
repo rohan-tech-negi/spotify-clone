@@ -1,6 +1,7 @@
+import { config } from "dotenv";
+config();
 import express from "express";
-import dotenv from "dotenv";
-import { clerkClient, clerkMiddleware, getAuth } from '@clerk/express'
+import { clerkMiddleware } from '@clerk/express'
 import fileUpload from "express-fileupload"
 import path from "path"
 import cors from "cors"
@@ -12,9 +13,6 @@ import albumRoutes from "./routes/album.route.js"
 import authRoutes from "./routes/auth.route.js"
 import songRoutes from "./routes/song.route.js"
 import statRoutes from "./routes/stat.route.js"
-
-
-dotenv.config();
 
 const __dirname = path.resolve();
 
