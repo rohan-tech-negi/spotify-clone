@@ -1,5 +1,4 @@
-import { config } from "dotenv";
-config();
+import "dotenv/config";
 import express from "express";
 import { clerkMiddleware } from '@clerk/express'
 import fileUpload from "express-fileupload"
@@ -25,7 +24,7 @@ app.use(cors({
 
 app.use(express.json());
 
-app.use(clerkMiddleware())
+app.use(clerkMiddleware({ debug: true }))
 app.use(fileUpload({useTempFiles: true, tempFileDir: path.join(__dirname, 'tmp'),
     createParentPath: true,
     limits:{
