@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
-import { TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useMusicStore } from '@/stores/useMusicStore';
-import { Calendar, Table, Trash2 } from 'lucide-react';
+import { Calendar, Trash2 } from 'lucide-react';
 import React from 'react'
 
 const SongsTable = () => {

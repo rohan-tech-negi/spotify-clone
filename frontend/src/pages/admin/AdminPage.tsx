@@ -14,15 +14,14 @@ const AdminPage = () => {
 	const { fetchAlbums, fetchSongs, fetchStats } = useMusicStore();
 
   	useEffect(() => {
-		fetchAlbums();
-		fetchSongs();
-		fetchStats();
-	}, [fetchAlbums, fetchSongs, fetchStats]);
+		if (isAdmin) {
+			fetchAlbums();
+			fetchSongs();
+			fetchStats();
+		}
+	}, [fetchAlbums, fetchSongs, fetchStats, isAdmin]);
 
-
-  // if (!isAdmin && !isLoading) return <div>Unauthorized</div>;
-
-
+	if (!isAdmin && !isLoading) return <div>Unauthorized</div>;
   return (
     <div
 			className='min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900
