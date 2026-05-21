@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { Song } from "../models/songModel.js";
-import { Album } from "../models/albumModel.js";
+import { Song } from "../models/song.model.js";
+import { Album } from "../models/album.model.js";
 import { config } from "dotenv";
 
 config();
