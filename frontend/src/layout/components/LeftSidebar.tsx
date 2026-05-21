@@ -15,8 +15,6 @@ const LeftSidebar = () => {
 		fetchAlbums();
 	}, [fetchAlbums]);
 
-	console.log({ albums });
-
 	return (
 		<div className='h-full flex flex-col gap-2'>
 			{/* Navigation menu */}
@@ -33,7 +31,7 @@ const LeftSidebar = () => {
 						)}
 					>
 						<HomeIcon className='mr-2 size-5' />
-						<span className='hidden md:inline'>Home</span>
+						<span>Home</span>
 					</Link>
 
 					<SignedIn>
@@ -47,7 +45,7 @@ const LeftSidebar = () => {
 							)}
 						>
 							<MessageCircle className='mr-2 size-5' />
-							<span className='hidden md:inline'>Messages</span>
+							<span>Messages</span>
 						</Link>
 					</SignedIn>
 				</div>
@@ -58,7 +56,7 @@ const LeftSidebar = () => {
 				<div className='flex items-center justify-between mb-4'>
 					<div className='flex items-center text-white px-2'>
 						<Library className='size-5 mr-2' />
-						<span className='hidden md:inline'>Playlists</span>
+						<span>Playlists</span>
 					</div>
 				</div>
 
@@ -79,7 +77,7 @@ const LeftSidebar = () => {
 										className='size-12 rounded-md flex-shrink-0 object-cover'
 									/>
 
-									<div className='flex-1 min-w-0 hidden md:block'>
+									<div className='flex-1 min-w-0'>
 										<p className='font-medium truncate'>{album.title}</p>
 										<p className='text-sm text-zinc-400 truncate'>Album • {album.artist}</p>
 									</div>

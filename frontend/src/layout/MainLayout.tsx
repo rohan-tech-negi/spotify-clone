@@ -19,19 +19,33 @@ const MainLayout = () => {
 		return () => window.removeEventListener("resize", checkMobile);
 	}, []);
 
+	const panelLayout = isMobile
+		? { left: 20, main: 80 }
+		: { left: 20, main: 60, right: 20 };
+
 	return (
 		<div className='h-screen bg-black text-white flex flex-col'>
-			<ResizablePanelGroup direction='horizontal' className='flex-1 flex h-full overflow-hidden p-2'>
-				<AudioPlayer />
+			<AudioPlayer />
+			<ResizablePanelGroup
+				direction='horizontal'
+				className='flex-1 flex h-full overflow-hidden p-2'
+				defaultLayout={panelLayout}
+			>
 				{/* left sidebar */}
-				<ResizablePanel defaultSize={20} minSize={isMobile ? 0 : 10} maxSize={30}>
+				<ResizablePanel
+					id='left'
+					defaultSize={20}
+					minSize={isMobile ? 15 : 18}
+					maxSize={30}
+					className='h-full overflow-hidden'
+				>
 					<LeftSidebar />
 				</ResizablePanel>
 
 				<ResizableHandle className='w-2 bg-black rounded-lg transition-colors' />
 
 				{/* Main content */}
-				<ResizablePanel defaultSize={isMobile ? 80 : 60}>
+				<ResizablePanel id='main' defaultSize={isMobile ? 80 : 60} minSize={40} className='h-full overflow-hidden'>
 					<Outlet />
 				</ResizablePanel>
 
@@ -40,7 +54,13 @@ const MainLayout = () => {
 						<ResizableHandle className='w-2 bg-black rounded-lg transition-colors' />
 
 						{/* right sidebar */}
-						<ResizablePanel defaultSize={20} minSize={0} maxSize={25} collapsedSize={0}>
+						<ResizablePanel
+							id='right'
+							defaultSize={20}
+							minSize={18}
+							maxSize={30}
+							className='h-full overflow-hidden'
+						>
 							<FriendsActivity />
 						</ResizablePanel>
 					</>
