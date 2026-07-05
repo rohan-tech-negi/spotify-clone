@@ -33,6 +33,24 @@ export const becomeArtist = async (req, res, next) => {
 	}
 };
 
+export const becomeListener = async (req, res, next) => {
+	try {
+		const user = await User.findOneAndUpdate(
+			{ clerkId: req.auth.userId },
+			{ isArtist: false },
+			{ new: true }
+		);
+
+		if (!user) {
+			return res.status(404).json({ message: "User not found" });
+		}
+
+		res.status(200).json(user);
+	} catch (error) {
+		next(error);
+	}
+};
+
 export const getAllUsers = async (req, res, next) => {
 	try {
 		const currentUserId = req.auth.userId;

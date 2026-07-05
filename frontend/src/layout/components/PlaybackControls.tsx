@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { usePlayerStore } from "@/stores/usePlayerStore";
+import { useSettingsStore } from "@/stores/useSettingsStore";
 import { Laptop2, ListMusic, Mic2, Pause, Play, Repeat, Shuffle, SkipBack, SkipForward, Volume1 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -12,8 +13,8 @@ const formatTime = (seconds: number) => {
 
 export const PlaybackControls = () => {
 	const { currentSong, isPlaying, togglePlay, playNext, playPrevious } = usePlayerStore();
+	const { volume, setVolume, normalizeVolume } = useSettingsStore();
 
-	const [volume, setVolume] = useState(75);
 	const [currentTime, setCurrentTime] = useState(0);
 	const [duration, setDuration] = useState(0);
 	const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -157,7 +158,10 @@ export const PlaybackControls = () => {
 							onValueChange={(value) => {
 								setVolume(value[0]);
 								if (audioRef.current) {
-									audioRef.current.volume = value[0] / 100;
+									const normalizedVolume = normalizeVolume
+										? Math.min(value[0] / 100, 0.85)
+										: value[0] / 100;
+									audioRef.current.volume = normalizedVolume;
 								}
 							}}
 						/>

@@ -1,6 +1,8 @@
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import { Settings } from "lucide-react";
+import { Link } from "react-router-dom";
 import SignInOAuthButtons from "./SignInOAuthButtons";
-import SettingsDialog from "./SettingsDialog";
+import { Button } from "./ui/button";
 
 const Topbar = () => {
 	return (
@@ -14,15 +16,19 @@ const Topbar = () => {
 				Spotify
 			</div>
 			<div className='flex items-center gap-4'>
-				<SignedIn>
-					<SettingsDialog />
-				</SignedIn>
+				<Link to='/settings'>
+					<Button variant='outline' size='icon' aria-label='Settings'>
+						<Settings className='size-4' />
+					</Button>
+				</Link>
 
 				<SignedOut>
 					<SignInOAuthButtons />
 				</SignedOut>
 
-				<UserButton />
+				<SignedIn>
+					<UserButton />
+				</SignedIn>
 			</div>
 		</div>
 	);

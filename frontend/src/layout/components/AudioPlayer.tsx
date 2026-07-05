@@ -1,4 +1,5 @@
 import { usePlayerStore } from "@/stores/usePlayerStore";
+import { useSettingsStore } from "@/stores/useSettingsStore";
 import { useEffect, useRef } from "react";
 
 const AudioPlayer = () => {
@@ -6,6 +7,15 @@ const AudioPlayer = () => {
 	const prevSongRef = useRef<string | null>(null);
 
 	const { currentSong, isPlaying, playNext } = usePlayerStore();
+	const volume = useSettingsStore((state) => state.volume);
+	const autoplay = useSettingsStore((state) => state.autoplay);
+	const normalizeVolume = useSettingsStore((state) => state.normalizeVolume);
+
+	useEffect(() => {
+		if (!audioRef.current) return;
+		const normalizedVolume = normalizeVolume ? Math.min(volume / 100, 0.85) : volume / 100;
+		audioRef.current.volume = normalizedVolume;
+	}, [volume, normalizeVolume]);
 
 	// handle play/pause logic
 	useEffect(() => {
@@ -18,13 +28,14 @@ const AudioPlayer = () => {
 		const audio = audioRef.current;
 
 		const handleEnded = () => {
-			playNext();
+			if (autoplay) playNext();
+			else usePlayerStore.setState({ isPlaying: false });
 		};
 
 		audio?.addEventListener("ended", handleEnded);
 
 		return () => audio?.removeEventListener("ended", handleEnded);
-	}, [playNext]);
+	}, [playNext, autoplay]);
 
 	// handle song changes
 	useEffect(() => {
