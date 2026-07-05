@@ -1,7 +1,7 @@
 import { User } from "../models/user.model.js";
 
 export const protectRoute = async (req, res, next) => {
-	if (!req.auth.userId) {
+	if (!req.auth || !req.auth.userId) {
 		return res.status(401).json({ message: "Unauthorized - you must be logged in" });
 	}
 	next();
@@ -9,6 +9,9 @@ export const protectRoute = async (req, res, next) => {
 
 export const requireArtist = async (req, res, next) => {
 	try {
+		if (!req.auth || !req.auth.userId) {
+			return res.status(401).json({ message: "Unauthorized - you must be logged in" });
+		}
 		const user = await User.findOne({ clerkId: req.auth.userId });
 
 		if (!user?.isArtist) {

@@ -5,11 +5,6 @@ import { useAuth } from "@clerk/clerk-react";
 import { Loader } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const updateApiToken = (token: string | null) => {
-	if (token) axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-	else delete axiosInstance.defaults.headers.common["Authorization"];
-};
-
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const { getToken, userId } = useAuth();
 	const [loading, setLoading] = useState(true);
@@ -17,17 +12,38 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const { initSocket, disconnectSocket } = useChatStore();
 
 	useEffect(() => {
+		const requestInterceptor = axiosInstance.interceptors.request.use(
+			async (config) => {
+				try {
+					const token = await getToken();
+					if (token) {
+						config.headers.Authorization = `Bearer ${token}`;
+					}
+				} catch (error) {
+					console.error("Error in auth interceptor", error);
+				}
+				return config;
+			},
+			(error) => {
+				return Promise.reject(error);
+			}
+		);
+
+		return () => {
+			axiosInstance.interceptors.request.eject(requestInterceptor);
+		};
+	}, [getToken]);
+
+	useEffect(() => {
 		const initAuth = async () => {
 			try {
 				const token = await getToken();
-				updateApiToken(token);
 				if (token) {
 					await fetchUserProfile();
 					// init socket
 					if (userId) initSocket(userId);
 				}
 			} catch (error: any) {
-				updateApiToken(null);
 				console.log("Error in auth provider", error);
 			} finally {
 				setLoading(false);
