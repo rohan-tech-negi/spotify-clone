@@ -19,7 +19,7 @@ const MainLayout = () => {
 		return () => window.removeEventListener("resize", checkMobile);
 	}, []);
 
-	const panelLayout = isMobile
+	const panelLayout: Record<string, number> = isMobile
 		? { left: 20, main: 80 }
 		: { left: 20, main: 60, right: 20 };
 
@@ -34,9 +34,9 @@ const MainLayout = () => {
 				{/* left sidebar */}
 				<ResizablePanel
 					id='left'
-					defaultSize={20}
-					minSize={isMobile ? 15 : 18}
-					maxSize={30}
+					defaultSize="20"
+					minSize={isMobile ? "15" : "18"}
+					maxSize="30"
 					className='h-full overflow-hidden'
 				>
 					<LeftSidebar />
@@ -45,7 +45,7 @@ const MainLayout = () => {
 				<ResizableHandle className='w-2 bg-black rounded-lg transition-colors' />
 
 				{/* Main content */}
-				<ResizablePanel id='main' defaultSize={isMobile ? 80 : 60} minSize={40} className='h-full overflow-hidden'>
+				<ResizablePanel id='main' defaultSize={isMobile ? "80" : "60"} minSize="40" className='h-full overflow-hidden'>
 					<Outlet />
 				</ResizablePanel>
 
@@ -56,9 +56,9 @@ const MainLayout = () => {
 						{/* right sidebar */}
 						<ResizablePanel
 							id='right'
-							defaultSize={20}
-							minSize={18}
-							maxSize={30}
+							defaultSize="20"
+							minSize="18"
+							maxSize="30"
 							className='h-full overflow-hidden'
 						>
 							<FriendsActivity />
