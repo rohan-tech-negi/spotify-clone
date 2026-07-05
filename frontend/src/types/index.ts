@@ -40,4 +40,5 @@ export interface User {
 	clerkId: string;
 	fullName: string;
 	imageUrl: string;
+	isArtist: boolean;
 }

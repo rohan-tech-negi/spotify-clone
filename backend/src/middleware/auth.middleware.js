@@ -1,4 +1,4 @@
-import { clerkClient } from "@clerk/express";
+import { User } from "../models/user.model.js";
 
 export const protectRoute = async (req, res, next) => {
 	if (!req.auth.userId) {
@@ -7,22 +7,12 @@ export const protectRoute = async (req, res, next) => {
 	next();
 };
 
-export const requireAdmin = async (req, res, next) => {
+export const requireArtist = async (req, res, next) => {
 	try {
-		const currentUser = await clerkClient.users.getUser(req.auth.userId);
-		const userEmail = currentUser.primaryEmailAddress?.emailAddress;
-		const adminEmail = process.env.ADMIN_EMAIL;
-		const isAdmin = adminEmail === userEmail;
+		const user = await User.findOne({ clerkId: req.auth.userId });
 
-		console.log("requireAdmin check:", {
-			userId: req.auth.userId,
-			userEmail,
-			adminEmail,
-			isAdmin
-		});
-
-		if (!isAdmin) {
-			return res.status(403).json({ message: "Unauthorized - you must be an admin" });
+		if (!user?.isArtist) {
+			return res.status(403).json({ message: "Unauthorized - you must be an artist" });
 		}
 
 		next();

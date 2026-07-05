@@ -1,14 +1,8 @@
-import { SignedOut, UserButton } from "@clerk/clerk-react";
-import { LayoutDashboardIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import SignInOAuthButtons from "./SignInOAuthButtons";
-import { useAuthStore } from "@/stores/useAuthStore";
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "./ui/button";
+import SettingsDialog from "./SettingsDialog";
 
 const Topbar = () => {
-	const { isAdmin } = useAuthStore();
-
 	return (
 		<div
 			className='flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 
@@ -20,12 +14,9 @@ const Topbar = () => {
 				Spotify
 			</div>
 			<div className='flex items-center gap-4'>
-				{isAdmin && (
-					<Link to={"/admin"} className={cn(buttonVariants({ variant: "outline" }))}>
-						<LayoutDashboardIcon className='size-4  mr-2' />
-						Admin Dashboard
-					</Link>
-				)}
+				<SignedIn>
+					<SettingsDialog />
+				</SignedIn>
 
 				<SignedOut>
 					<SignInOAuthButtons />

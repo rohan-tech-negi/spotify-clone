@@ -1,6 +1,38 @@
 import { User } from "../models/user.model.js";
 import { Message } from "../models/message.model.js";
 
+export const getCurrentUser = async (req, res, next) => {
+	try {
+		const user = await User.findOne({ clerkId: req.auth.userId });
+
+		if (!user) {
+			return res.status(404).json({ message: "User not found" });
+		}
+
+		res.status(200).json(user);
+	} catch (error) {
+		next(error);
+	}
+};
+
+export const becomeArtist = async (req, res, next) => {
+	try {
+		const user = await User.findOneAndUpdate(
+			{ clerkId: req.auth.userId },
+			{ isArtist: true },
+			{ new: true }
+		);
+
+		if (!user) {
+			return res.status(404).json({ message: "User not found" });
+		}
+
+		res.status(200).json(user);
+	} catch (error) {
+		next(error);
+	}
+};
+
 export const getAllUsers = async (req, res, next) => {
 	try {
 		const currentUserId = req.auth.userId;

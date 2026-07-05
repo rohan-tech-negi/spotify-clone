@@ -1,4 +1,3 @@
-import { clerkClient } from "@clerk/express";
 import { Song } from "../models/song.model.js";
 import { Album } from "../models/album.model.js";
 import cloudinary from "../lib/cloudinary.js";
@@ -106,27 +105,6 @@ export const deleteAlbum = async (req, res, next) => {
 		res.status(200).json({ message: "Album deleted successfully" });
 	} catch (error) {
 		console.log("Error in deleteAlbum", error);
-		next(error);
-	}
-};
-
-export const checkAdmin = async (req, res, next) => {
-	try {
-		const currentUser = await clerkClient.users.getUser(req.auth.userId);
-		const userEmail = currentUser.primaryEmailAddress?.emailAddress;
-		const adminEmail = process.env.ADMIN_EMAIL;
-		const isAdmin = adminEmail === userEmail;
-
-		console.log("checkAdmin check:", {
-			userId: req.auth.userId,
-			userEmail,
-			adminEmail,
-			isAdmin
-		});
-
-		res.status(200).json({ admin: isAdmin });
-	} catch (error) {
-		console.log("Error in checkAdmin", error);
 		next(error);
 	}
 };

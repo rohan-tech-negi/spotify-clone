@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { axiosInstance } from "@/lib/axios";
+import { useAuthStore } from "@/stores/useAuthStore";
 import { useUser } from "@clerk/clerk-react";
 import { Loader } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -9,6 +10,7 @@ const AuthCallbackPage = () => {
 	const { isLoaded, user } = useUser();
 	const navigate = useNavigate();
 	const syncAttempted = useRef(false);
+	const { fetchUserProfile } = useAuthStore();
 
 	useEffect(() => {
 		const syncUser = async () => {
@@ -23,6 +25,8 @@ const AuthCallbackPage = () => {
 					lastName: user.lastName,
 					imageUrl: user.imageUrl,
 				});
+
+				await fetchUserProfile();
 			} catch (error) {
 				console.log("Error in auth callback", error);
 			} finally {
@@ -31,7 +35,7 @@ const AuthCallbackPage = () => {
 		};
 
 		syncUser();
-	}, [isLoaded, user, navigate]);
+	}, [isLoaded, user, navigate, fetchUserProfile]);
 
 	return (
 		<div className='h-screen w-full bg-black flex items-center justify-center'>
