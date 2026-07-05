@@ -113,8 +113,17 @@ export const deleteAlbum = async (req, res, next) => {
 export const checkAdmin = async (req, res, next) => {
 	try {
 		const currentUser = await clerkClient.users.getUser(req.auth.userId);
-		const isAdmin =
-			process.env.ADMIN_EMAIL === currentUser.primaryEmailAddress?.emailAddress;
+		const userEmail = currentUser.primaryEmailAddress?.emailAddress;
+		const adminEmail = process.env.ADMIN_EMAIL;
+		const isAdmin = adminEmail === userEmail;
+
+		console.log("checkAdmin check:", {
+			userId: req.auth.userId,
+			userEmail,
+			adminEmail,
+			isAdmin
+		});
+
 		res.status(200).json({ admin: isAdmin });
 	} catch (error) {
 		console.log("Error in checkAdmin", error);
